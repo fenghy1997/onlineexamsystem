@@ -148,34 +148,40 @@
                         </div>
                     </div>
 
-                    <%--<div class="form-group">--%>
-                        <%--<label  class="col-sm-2 control-label">性别:</label>--%>
-                        <%--<div class="col-sm-8">--%>
-                            <%--<label class="radio-inline">--%>
-                                <%--<input type="radio" name="sex" id="isex1" value="M" checked> MAN--%>
-                            <%--</label>--%>
-                            <%--<label class="radio-inline">--%>
-                                <%--<input type="radio" name="sex" id="isex2" value="w"> WOMAN--%>
-                            <%--</label>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">性别:</label>
+                        <div class="col-sm-8">
+                            <label class="radio-inline">
+                                <input type="radio" name="sex" id="isex1" value="M" checked> MAN
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="sex" id="isex2" value="w"> WOMAN
+                            </label>
+                        </div>
+                    </div>
+                    <div id="yearSetTableToolBar" class="form-group">
+                        <label  class="col-sm-2 control-label">籍贯:</label>
+                        <div class="col-sm-4 col-lg-3 col-md-3 col-xs-12">
+                                <div class="input-group input-group-sm">
 
+                                <select class="selectpicker form-control" style="height: 40px"
+                                        name="period" id="placeSelect"
+                                        data-style="btn-default btn-outline"
+                                        noneSelectedText="不限">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="niname" class="col-sm-2 control-label">学号:</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="nickname" class="form-control" id="niname" placeholder="请输入您的学号">
+                            <span  class="help-block"></span>
+                        </div>
+                    </div>
                     <%--<div class="form-group">--%>
-                        <%--<label for="iage" class="col-sm-2 control-label">年龄:</label>--%>
-                        <%--<div class="col-sm-9">--%>
-                            <%--<input type="text" name="age" class="form-control" id="iage" placeholder="请输入您的年龄">--%>
-                            <%--<span  class="help-block"></span>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-                    <%--<div class="form-group">--%>
-                        <%--<label for="niname" class="col-sm-2 control-label">昵称:</label>--%>
-                        <%--<div class="col-sm-9">--%>
-                            <%--<input type="text" name="nickname" class="form-control" id="niname" placeholder="请输入您的昵称">--%>
-                            <%--<span  class="help-block"></span>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-                    <%--<div class="form-group">--%>
-                        <%--<label for="ibrith" class="col-sm-2 control-label">出生年月:</label>--%>
+                        <%--<label for="ibrith" class="col-sm-2 control-label">密码:</label>--%>
                         <%--<div class="col-sm-9">--%>
                             <%--<input type='text' name="brith" class="form-control" id='ibrith' placeholder="请选择您的出生日期" />--%>
                             <%--<span  class="help-block"></span>--%>
@@ -196,13 +202,13 @@
                         <%--</div>--%>
                     <%--</div>--%>
 
-                    <%--<div class="form-group">--%>
-                        <%--<label for="iemail" class="col-sm-2 control-label">邮箱:</label>--%>
-                        <%--<div class="col-sm-9">--%>
-                            <%--<input type="text" name="email" class="form-control " id="iemail" placeholder="请输入您的邮箱">--%>
-                            <%--<span  class="help-block"></span>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
+                    <div class="form-group">
+                        <label for="iemail" class="col-sm-2 control-label">邮箱:</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="email" class="form-control " id="iemail" placeholder="请输入您的邮箱">
+                            <span  class="help-block"></span>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label for="ipwd" class="col-sm-2 control-label">密码:</label>
                         <div class="col-sm-9">
@@ -217,14 +223,14 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <%--<div class="col-md-2"></div>--%>
-                        <%--<div class="col-sm-6">--%>
-                            <%--<input id="iyzm" type="text" name="yzm" readonly class="form-control" placeholder="验证码"/>--%>
-                            <%--<span  class="help-block"></span>--%>
-                        <%--</div>--%>
-                        <%--<div class="col-sm-3">--%>
-                            <%--<button type="button" id="make_yz_btn" class="btn btn-danger" onclick="getyzm2(this);">获取验证码</button>--%>
-                        <%--</div>--%>
+                        <div class="col-md-2"></div>
+                        <div class="col-sm-6">
+                            <input id="iyzm" type="text" name="yzm" readonly class="form-control" placeholder="验证码"/>
+                            <span  class="help-block"></span>
+                        </div>
+                        <div class="col-sm-3">
+                            <button type="button" id="make_yz_btn" class="btn btn-danger" onclick="getyzm2(this);">获取验证码</button>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -310,6 +316,7 @@
 <script>
     $(function () {
         showEchars();
+        choosePlace();
     })
     //弹出模态框
     $("#login").click(function(){
@@ -475,11 +482,22 @@
         };
         myChart.setOption(option,true);
     }
+//    籍贯选择
+    function choosePlace() {
+        var place=['河南', '河北','西藏','青海','宁夏','海南','甘肃', '贵州', '新疆', '云南', '重庆', '吉林', '山西', '天津', '江西', '广西', '陕西', '黑龙江', '内蒙古', '安徽', '北京', '福建', '上海', '湖北', '湖南', '四川', '辽宁', '浙江', '山东', '江苏', '广东', '台湾', '南海诸岛'];
+
+        for (var i = 0; i < place.length; i++) {
+            $("#placeSelect").append('<option value="' +place[i]+ '">' +place[i] + '</option>');
+        }
+    }
 </script>
 
 
 
-<%--<script>--%>
+
+
+
+<script>
 
 
 
@@ -636,25 +654,25 @@
 <%--});--%>
 <%--}--%>
 
-<%--var countdown = 60;--%>
+var countdown = 60;
 
-<%--function changetime(obj, ele) {--%>
-<%--if (countdown == 0) {--%>
-<%--yzmre(ele);--%>
-<%--$(obj).removeAttr('disabled');--%>
-<%--$(obj).text("获取验证码");--%>
-<%--countdown = 60;--%>
-<%--return false;--%>
-<%--} else {--%>
-<%--yzmzt(ele);--%>
-<%--$(obj).attr({'disabled': 'disabled'});--%>
-<%--$(obj).text("重新发送(" + countdown + ")");--%>
-<%--countdown--;--%>
-<%--}--%>
-<%--setTimeout(function () {--%>
-<%--changetime(obj);--%>
-<%--}, 1000);--%>
-<%--}--%>
+function changetime(obj, ele) {
+if (countdown == 0) {
+yzmre(ele);
+$(obj).removeAttr('disabled');
+$(obj).text("获取验证码");
+countdown = 60;
+return false;
+} else {
+yzmzt(ele);
+$(obj).attr({'disabled': 'disabled'});
+$(obj).text("重新发送(" + countdown + ")");
+countdown--;
+}
+setTimeout(function () {
+changetime(obj);
+}, 1000);
+}
 
 <%--function yzmzt(ele) {--%>
 <%--$(ele).removeAttr('readonly');--%>
@@ -903,155 +921,156 @@
 <%--});--%>
 <%--});--%>
 
-<%--function check() {--%>
-<%--var password = $('#ipwd').val().trim();--%>
-<%--var age = $('#iage').val().trim();--%>
-<%--var name = $('#iname').val().trim();--%>
-<%--var phone = $('#iphone').val().trim();--%>
-<%--var brith = $('#ibrith').val().trim();--%>
-<%--var docuaddress = $('#iaddress').val().trim();--%>
-<%--var yzm = $('#iyzm').val().trim();--%>
+function check() {
+var password = $('#ipwd').val().trim();
+var age = $('#iage').val().trim();
+var name = $('#iname').val().trim();
+var phone = $('#iphone').val().trim();
+var brith = $('#ibrith').val().trim();
+var docuaddress = $('#iaddress').val().trim();
+var yzm = $('#iyzm').val().trim();
 
-<%--var rpassword = /^[\w]{6,12}$/;--%>
-<%--var rname = /^(^[\u2E80-\u9FFF]{2,15})$/;--%>
-<%--var rage = /^([0-9]{2})$/;--%>
-<%--var rbrith = /^((?:19|20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/;--%>
-<%--var rphone = /^1[3|4|5|7|8|9][0-9]\d{8}$/;--%>
-<%--var rpwd = /^([a-zA-Z0-9]{6,16})$/;--%>
-<%--var raddress = /^(([1|2][0-9])|[1-9])-([1-6][0-2][0-9]|[1-6][3][1-5])$/;--%>
-<%--var ryzm = /^[0-9]{6}$/;--%>
-<%--//验证姓名--%>
-<%--if (name == null || name == '') {--%>
-<%--show_validate_msg("#iname", "error", "姓名不能为空！");--%>
-<%--return false;--%>
-<%--} else if (!rname.test(name)) {--%>
-<%--show_validate_msg("#iname", "error", "姓名可以是2-15位中文！");--%>
-<%--return false;--%>
-<%--} else {--%>
-<%--show_validate_msg("#iname", "success", "");--%>
-<%--}--%>
-<%--//验证年龄--%>
-<%--if (age == null || age == '') {--%>
-<%--show_validate_msg("#iage", "error", "年龄不能为空！");--%>
-<%--return false;--%>
-<%--} else if (!rage.test(age)) {--%>
-<%--show_validate_msg("#iage", "error", "年龄只能为两位数字！");--%>
-<%--return false;--%>
-<%--} else {--%>
-<%--show_validate_msg("#iage", "success", "");--%>
-<%--}--%>
+var rpassword = /^[\w]{6,12}$/;
+var rname = /^(^[\u2E80-\u9FFF]{2,15})$/;
+var rage = /^([0-9]{2})$/;
+var rbrith = /^((?:19|20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/;
+var rphone = /^1[3|4|5|7|8|9][0-9]\d{8}$/;
+var rpwd = /^([a-zA-Z0-9]{6,16})$/;
+var raddress = /^(([1|2][0-9])|[1-9])-([1-6][0-2][0-9]|[1-6][3][1-5])$/;
+var ryzm = /^[0-9]{6}$/;
+//验证姓名
+if (name == null || name == '') {
+show_validate_msg("#iname", "error", "姓名不能为空！");
+return false;
+} else if (!rname.test(name)) {
+show_validate_msg("#iname", "error", "姓名可以是2-15位中文！");
+return false;
+} else {
+show_validate_msg("#iname", "success", "");
+}
+// //验证年龄
+// if (age == null || age == '') {
+// show_validate_msg("#iage", "error", "年龄不能为空！");
+// return false;
+// } else if (!rage.test(age)) {
+// show_validate_msg("#iage", "error", "年龄只能为两位数字！");
+// return false;
+// } else {
+// show_validate_msg("#iage", "success", "");
+// }
 
-<%--//验证出生年月--%>
-<%--if (brith == null || brith == '') {--%>
-<%--show_validate_msg("#ibrith", "error", "出生年月不能为空！");--%>
-<%--return false;--%>
-<%--} else {--%>
-<%--show_validate_msg("#ibrith", "success", "");--%>
-<%--}--%>
-<%--//验证手机号--%>
-<%--if (phone == null || phone == '') {--%>
-<%--show_validate_msg("#iphone", "error", "手机不能为空！");--%>
-<%--return false;--%>
-<%--} else if (!rphone.test(phone)) {--%>
-<%--show_validate_msg("#iphone", "error", "手机格式不正确！");--%>
-<%--return false;--%>
-<%--} else {--%>
-<%--show_validate_msg("#iphone", "success", "");--%>
-<%--}--%>
+// //验证出生年月
+// if (brith == null || brith == '') {
+// show_validate_msg("#ibrith", "error", "出生年月不能为空！");
+// return false;
+// } else {
+// show_validate_msg("#ibrith", "success", "");
+// }
+//验证手机号
+if (phone == null || phone == '') {
+show_validate_msg("#iphone", "error", "手机不能为空！");
+return false;
+} else if (!rphone.test(phone)) {
+show_validate_msg("#iphone", "error", "手机格式不正确！");
+return false;
+} else {
+show_validate_msg("#iphone", "success", "");
+}
 
-<%--//验证住址--%>
-<%--if (docuaddress == null || docuaddress == '') {--%>
-<%--show_validate_msg("#iaddress", "error", "住址不能为空！");--%>
-<%--return false;--%>
-<%--} else if (!raddress.test(docuaddress)) {--%>
-<%--show_validate_msg("#iaddress", "error", "请输入正确的寝室住址！");--%>
-<%--return false;--%>
-<%--} else {--%>
-<%--show_validate_msg("#iaddress", "success", "");--%>
-<%--}--%>
-<%--//验证密码--%>
-<%--if (password == null || password == '') {--%>
-<%--show_validate_msg("#ipwd", "error", "密码不能为空！");--%>
-<%--return false;--%>
-<%--} else if (!rpwd.test(password)) {--%>
-<%--show_validate_msg("#ipwd", "error", "密码格式不正确！");--%>
-<%--return false;--%>
-<%--} else {--%>
-<%--show_validate_msg("#ipwd", "success", "");--%>
-<%--return true;--%>
-<%--}--%>
+// //验证住址
+// if (docuaddress == null || docuaddress == '') {
+// show_validate_msg("#iaddress", "error", "住址不能为空！");
+// return false;
+// } else if (!raddress.test(docuaddress)) {
+// show_validate_msg("#iaddress", "error", "请输入正确的寝室住址！");
+// return false;
+// } else {
+// show_validate_msg("#iaddress", "success", "");
+// }
+//验证密码
+if (password == null || password == '') {
+show_validate_msg("#ipwd", "error", "密码不能为空！");
+return false;
+} else if (!rpwd.test(password)) {
+show_validate_msg("#ipwd", "error", "密码格式不正确！");
+return false;
+} else {
+show_validate_msg("#ipwd", "success", "");
+return true;
+}
 
-<%--if (yzm == null || yzm == '') {--%>
-<%--show_validate_msg("#iyzm", "error", "验证码不能为空！");--%>
-<%--return false;--%>
-<%--} else if (!ryzm.test(yzm)) {--%>
-<%--show_validate_msg("#iyzm", "error", "验证码格式不正确！");--%>
-<%--return false;--%>
-<%--} else {--%>
-<%--show_validate_msg("#iyzm", "success", "");--%>
-<%--return true;--%>
-<%--}--%>
-<%--}--%>
+if (yzm == null || yzm == '') {
+show_validate_msg("#iyzm", "error", "验证码不能为空！");
+return false;
+} else if (!ryzm.test(yzm)) {
+show_validate_msg("#iyzm", "error", "验证码格式不正确！");
+return false;
+} else {
+show_validate_msg("#iyzm", "success", "");
+return true;
+}
+}
 
-<%--<!--获取注册验证码-->--%>
-<%--function getyzm2(obj) {--%>
-<%--var email = $('#iemail').val().trim();--%>
-<%--var remail = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;--%>
-<%--if (email == null || email == '') {--%>
-<%--show_validate_msg("#iemail", "error", "邮箱不能为空！");--%>
-<%--return false;--%>
-<%--} else if (!remail.test(email)) {--%>
-<%--show_validate_msg("#iemail", "error", "邮箱格式不对！");--%>
-<%--return false;--%>
-<%--} else {--%>
-<%--show_validate_msg("#iemail", "success", "");--%>
-<%--}--%>
+<!--获取注册验证码-->
+function getyzm2(obj) {
+    alert($('#iemail').val());
+var email = $('#iemail').val().trim();
+var remail = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+if (email == null || email == '') {
+show_validate_msg("#iemail", "error", "邮箱不能为空！");
+return false;
+} else if (!remail.test(email)) {
+show_validate_msg("#iemail", "error", "邮箱格式不对！");
+return false;
+} else {
+show_validate_msg("#iemail", "success", "");
+}
 
 
-<%--if (!check()) {--%>
-<%--return false;--%>
-<%--}--%>
+if (!check()) {
+return false;
+}
 
-<%--changetime(obj, '#iyzm');//倒计时60s--%>
+changetime(obj, '#iyzm');//倒计时60s
 
-<%--$.ajax({--%>
-<%--type: 'get',--%>
-<%--url: '${staticPath}/user/sendyzm2',--%>
-<%--dataType: "json",--%>
-<%--data: {"email": email},--%>
-<%--success: function (result) {--%>
-<%--if (result.code == 100) {--%>
-<%--show_validate_msg("#iemail", "success", "");--%>
-<%--$("#user_save_btn").attr("ajax_va2", "success");--%>
-<%--window.setTimeout(show, 60000);--%>
+$.ajax({
+type: 'get',
+url: '${staticPath}/user/sendyzm2',
+dataType: "json",
+data: {"email": email},
+success: function (result) {
+if (result.code == 100) {
+show_validate_msg("#iemail", "success", "");
+$("#user_save_btn").attr("ajax_va2", "success");
+window.setTimeout(show, 60000);
 
-<%--function show() {--%>
-<%--$.ajax({--%>
-<%--type: 'get',--%>
-<%--data: {"email": email},--%>
-<%--url: '${staticPath}/user/checkoutyzm',--%>
-<%--dataType: "json",--%>
-<%--success: function (result) {--%>
-<%--if (result.code == 100) {--%>
-<%--yzmre('#iyzm');--%>
-<%--$(obj).removeAttr('disabled');--%>
-<%--}--%>
-<%--}--%>
-<%--});--%>
-<%--}--%>
-<%--} else {--%>
-<%--show_validate_msg("#iemail", "error", result.extend.va_msg);--%>
-<%--$("#user_save_btn").attr("ajax_va2", "error");--%>
-<%--yzmre('#iyzm');--%>
-<%--$(obj).removeAttr('disabled');--%>
-<%--}--%>
-<%--}--%>
-<%--});--%>
-<%--}--%>
+function show() {
+$.ajax({
+type: 'get',
+data: {"email": email},
+url: '${staticPath}/user/checkoutyzm',
+dataType: "json",
+success: function (result) {
+if (result.code == 100) {
+yzmre('#iyzm');
+$(obj).removeAttr('disabled');
+}
+}
+});
+}
+} else {
+show_validate_msg("#iemail", "error", result.extend.va_msg);
+$("#user_save_btn").attr("ajax_va2", "error");
+yzmre('#iyzm');
+$(obj).removeAttr('disabled');
+}
+}
+});
+}
 
-<%--$("#peocenter").click(function () {--%>
-<%--window.location.href = "${staticPath}/user/personCon";--%>
-<%--});--%>
+$("#peocenter").click(function () {
+window.location.href = "${staticPath}/user/personCon";
+});
 
 <%--////////////////////////////评论区////////////////////////////--%>
 
@@ -1114,6 +1133,6 @@
 <%--});--%>
 
 
-<%--</script>--%>
+</script>
 </body>
 </html>
