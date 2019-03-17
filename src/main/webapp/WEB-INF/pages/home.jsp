@@ -138,20 +138,6 @@
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
 
-            <!-- Sidebar user panel (optional) -->
-            <%--<div class="user-panel">--%>
-                <%--<div class="pull-left image">--%>
-                    <%--<img src="" class="img-circle  user_head_img" alt="User Image">--%>
-                <%--</div>--%>
-                <%--<div class="pull-left info">--%>
-                    <%--<p class="user_name">${sessionScope.userinfo.userName}</p>--%>
-                    <%--<!-- Status -->--%>
-                    <%--<a href="#"><i class="fa fa-circle text-success"></i> Online</a>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-
-
-
             <!-- Sidebar Menu -->
             <ul class="sidebar-menu">
                 <!-- student Menu -->
@@ -166,7 +152,6 @@
                     </a>
                     <ul class="treeview-menu" style="display: none;">
                         <li><a href="${staticPath}/personScoreAna.html" class="J_menuItem"><i class="fa fa-circle-o"></i>个人成绩分析</a></li>
-                        <li><a href="${staticPath}/personHistoryScore.html" class="J_menuItem"><i class="fa fa-circle-o"></i>个人历史成绩</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -178,10 +163,7 @@
                     </span>
                     </a>
                     <ul class="treeview-menu" style="display: none;">
-                        <li><a href="pages/charts/chartjs.html" class="J_menuItem"><i class="fa fa-circle-o"></i>班级成绩分析</a></li>
-                        <%--<li><a href="pages/charts/morris.html" class="J_menuItem"><i class="fa fa-circle-o">班级历史成绩</i></a></li>--%>
-                        <%--<li><a href="pages/charts/flot.html" class="J_menuItem"><i class="fa fa-circle-o"></i> Flot图表</a></li>--%>
-                        <%--<li><a href="pages/charts/inline.html" class="J_menuItem"><i class="fa fa-circle-o"></i> 线性图表</a></li>--%>
+                        <li><a href="${staticPath}/classScoreAna.html" class="J_menuItem"><i class="fa fa-circle-o"></i>班级成绩分析</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -193,10 +175,7 @@
                 </span>
                     </a>
                     <ul class="treeview-menu" style="display: none;">
-                        <li><a href="pages/charts/chartjs.html" class="J_menuItem"><i class="fa fa-circle-o"></i> JS图表</a></li>
-                        <li><a href="pages/charts/morris.html" class="J_menuItem"><i class="fa fa-circle-o"></i> Morris图表</a></li>
-                        <li><a href="pages/charts/flot.html" class="J_menuItem"><i class="fa fa-circle-o"></i> Flot图表</a></li>
-                        <li><a href="pages/charts/inline.html" class="J_menuItem"><i class="fa fa-circle-o"></i> 线性图表</a></li>
+                        <li><a href="${staticPath}/departmentScoreAna.html" class="J_menuItem"><i class="fa fa-circle-o"></i>系部成绩分析</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -209,9 +188,6 @@
                     </a>
                     <ul class="treeview-menu" style="display: none;">
                         <li><a href="pages/charts/chartjs.html" class="J_menuItem"><i class="fa fa-circle-o"></i>密码</a></li>
-                        <%--<li><a href="pages/charts/morris.html" class="J_menuItem"><i class="fa fa-circle-o">班级历史成绩</i></a></li>--%>
-                            <%--<li><a href="pages/charts/flot.html" class="J_menuItem"><i class="fa fa-circle-o"></i> Flot图表</a></li>--%>
-                            <%--<li><a href="pages/charts/inline.html" class="J_menuItem"><i class="fa fa-circle-o"></i> 线性图表</a></li>--%>
                     </ul>
                 </li>
                 </c:if>
@@ -226,10 +202,7 @@
                         </span>
                         </a>
                         <ul class="treeview-menu" style="display: none;">
-                            <li><a href="pages/charts/chartjs.html" class="J_menuItem"><i class="fa fa-circle-o"></i> JS图表</a></li>
-                            <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Morris图表</a></li>
-                            <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot图表</a></li>
-                            <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> 线性图表</a></li>
+                            <li><a href="${staticPath}/classScoreAna.html" class="J_menuItem"><i class="fa fa-circle-o"></i>班级成绩分析</a></li>
                         </ul>
                     </li>
                     <li class="treeview">
@@ -241,10 +214,7 @@
                 </span>
                         </a>
                         <ul class="treeview-menu" style="display: none;">
-                            <li><a href="pages/charts/chartjs.html" class="J_menuItem"><i class="fa fa-circle-o"></i> JS图表</a></li>
-                            <li><a href="pages/charts/morris.html" class="J_menuItem"><i class="fa fa-circle-o"></i> Morris图表</a></li>
-                            <li><a href="pages/charts/flot.html" class="J_menuItem"><i class="fa fa-circle-o"></i> Flot图表</a></li>
-                            <li><a href="pages/charts/inline.html" class="J_menuItem"><i class="fa fa-circle-o"></i> 线性图表</a></li>
+                            <li><a href="${staticPath}/departmentScoreAna.html" class="J_menuItem"><i class="fa fa-circle-o"></i>系部成绩分析</a></li>
                         </ul>
                     </li>
                     <li class="treeview">

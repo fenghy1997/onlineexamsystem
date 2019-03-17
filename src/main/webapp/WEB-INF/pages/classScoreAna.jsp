@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <%--<link rel="icon" href="../../img/bb.ico">--%>
-    <title>个人成绩报告</title>
+    <title>班级成绩报告</title>
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="${staticPath}/static/bootstrap/css/bootstrap.css">
     <!-- fileinput core CSS -->

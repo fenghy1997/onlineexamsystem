@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <%--<link rel="icon" href="../../img/bb.ico">--%>
-    <title>个人成绩报告</title>
+    <title>系部成绩报告</title>
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="${staticPath}/static/bootstrap/css/bootstrap.css">
     <!-- fileinput core CSS -->
@@ -84,27 +84,8 @@
                     <div class="panel panel-primary">
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
-                                    <div style="height: 400px; width: 100%;" id="classEchars">
+                                <div style="height: 400px; width: 100%;" id="classEchars">
 
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
-                                    <div style="height: 400px; width: 100%;" id="classEchars2">
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
-                                    <div style="height: 400px; width: 100%;" id="classEchars3">
-
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
-                                    <div style="height: 400px; width: 100%;" id="classEchars4">
-
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -171,9 +152,6 @@
 
     function getClassEchars() {
         var myChart= echarts.init(document.getElementById("classEchars"));
-        var myChart2= echarts.init(document.getElementById("classEchars2"));
-        var myChart3= echarts.init(document.getElementById("classEchars3"));
-        var myChart4= echarts.init(document.getElementById("classEchars4"));
         var option = {
             tooltip : {
                 trigger: 'axis'
@@ -244,13 +222,8 @@
         };
 
         myChart.setOption(option,true);
-        myChart2.setOption(option,true);
-        myChart3.setOption(option,true);
-        myChart4.setOption(option,true);
     }
-
-
-
 
 </script>
 </html>
+

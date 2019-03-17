@@ -37,4 +37,14 @@ public class PageController {
     public String excelImportWithScore(HttpServletRequest request) {
         return "WEB-INF/pages/excelImportWithScore";
     }
+
+    @RequestMapping("/classScoreAna.html")
+    public String classScoreAna(HttpServletRequest request) {
+        return "WEB-INF/pages/classScoreAna";
+    }
+
+    @RequestMapping("/departmentScoreAna.html")
+    public String departmentScoreAna(HttpServletRequest request) {
+        return "WEB-INF/pages/departmentScoreAna";
+    }
 }
