@@ -270,7 +270,7 @@
                 <%--</li>--%>
                 <c:if test="${not empty sessionScope.userinfo}">
                     <li>
-                        <a class="page-scroll" id="peocenter" mark="${sessionScope.userinfo.userId}" style="cursor: pointer">个人中心</a>
+                        <a class="page-scroll" href="${staticPath}/personCon" id="peocenter" mark="${sessionScope.userinfo.userId}" style="cursor: pointer">个人中心</a>
                     </li>
                     <li>
                         <a class="page-scroll"  id="logout" style="cursor: pointer">退出</a>
@@ -369,10 +369,6 @@
             }
         });
     });
-
-    $("#peocenter").click(function () {
-        window.location.href = "${staticPath}/personCon";
-    })
 
 
     function showEchars() {

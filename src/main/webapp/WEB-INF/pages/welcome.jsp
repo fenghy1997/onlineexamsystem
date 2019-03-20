@@ -8,60 +8,168 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../img/bb.ico">
-    <title>信息工程系成绩分析系统</title>
+    <%--<link rel="icon" href="../../img/bb.ico">--%>
+    <title>个人成绩报告</title>
     <!-- Bootstrap core CSS -->
-
-    <script src="../../js/jquery-3.2.1.js"></script>
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="../../static/bootstrap/css/bootstrap.css">
-
-    <link rel="stylesheet" href="../../css/font-awesome.css">
+    <link rel="stylesheet" href="${staticPath}/static/bootstrap/css/bootstrap.css">
+    <!-- fileinput core CSS -->
+    <link rel="stylesheet" href="${staticPath}/static/bootstrap-file-input/css/fileinput.css">
+    <link rel="stylesheet" href="${staticPath}/css/font-awesome.css">
+    <link rel="stylesheet" href="${staticPath}/static/sweetAlert/sweetalert2.css">
     <!-- Custom styles for this template -->
-    <link href="../../css/style.css" rel="stylesheet">
+    <link href="${staticPath}/css/style.css" rel="stylesheet">
 </head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="container-fluid">
+            <div class="row">
+                <label class="control-label btn-lg"></label>
+            </div>
 
-<body id="page-top">
-
-<!-- Navigation -->
-<nav class="navbar navbar-default" style="height: 500px">
-    <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header page-scroll">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <span class="navbar-brand page-scroll">
-                <div>
-                    <img src="../../img/aa.png" width="80px" height="80px">&nbsp;&nbsp;<a>信息工程系成绩分析系统</a>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h1 style="font-weight: bold">个人成绩概览</h1>
                 </div>
+            </div>
 
-               </span>
+            <div class="row">
+                <div class="col-md-12">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-12 col-md-12 col-xs-12">
+                                    <div style="height: 400px; width: 100%;" id="classEchars">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
         </div>
-        <%--<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">--%>
-            <%--<ul class="nav navbar-nav navbar-right">--%>
-                <%--<li class="hidden">--%>
-                    <%--<a href="#page-top"></a>--%>
-                <%--</li>--%>
-                <%--<li>--%>
-                    <%--<h4>在线人数:&nbsp;<span style="color: #f00b03" id="online">${PersonCount}</span>&nbsp;人</h4>--%>
-                <%--</li>--%>
-            <%--</ul>--%>
-        <%--</div>--%>
-
     </div>
-
-    <section id="portfolio" class="text-center">
-        <img src="/img/timg.jpg" width="80%" height="100%">
-    </section>
-</nav>
-
-
-
+</div>
 
 </body>
+
+<script src="${staticPath}/js/jquery-3.2.1.js"></script>
+<!-- fileinput core js -->
+<script src="${staticPath}/static/bootstrap-file-input/js/fileinput.js"></script>
+<script src="${staticPath}/static/bootstrap-file-input/js/locales/zh.js"></script>
+<script src="${staticPath}/static/sweetAlert/sweetalert2.all.min.js"></script>
 <!-- Bootstrap core js -->
-<script src="../../static/bootstrap/js/bootstrap.js"></script>
+<script src="${staticPath}/static/bootstrap/js/bootstrap.js"></script>
+
+<script src="${staticPath}/js/echarts.min.js"></script>
+
+
+<script>
+    $(function () {
+        getClassEchars();
+    });
+
+
+    function getClassEchars() {
+        var myChart= echarts.init(document.getElementById("classEchars"));
+        var xData=[];
+        var scores=[];
+        $.ajax({
+            type: "GET",
+            url: "v1/api/score/getAllScores",
+            dataType: "json",
+            async: false,
+            data:{year:null,team:null},
+            success: function (result) {
+                var data=result.result;
+                $.each(data, function(index, value) {
+                    xData.push(value.scoreClassName);
+                    scores.push(value.scoreNum);
+                })
+            }
+        });
+
+        var option = {
+            tooltip : {
+                trigger: 'axis'
+            },
+            visualMap: {
+                show:false,
+                max: 100,
+                inRange: {
+                    color: ['#313695', '#4575b4', '#74add1', '#abd9e9', '#e0f3f8', '#b4ffc0', '#b4fed1', '#7ffda1', '#6ef47a', '#4fd746', '#20a50d']
+                }
+            },
+            legend: {
+                data:['学科成绩']
+            },
+            toolbox: {
+                show : true,
+                feature : {
+                    mark : {show: true},
+                    dataView : {show: true, readOnly: false},
+                    magicType : {show: true, type: ['line', 'bar']},
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
+            calculable : true,
+            xAxis : [
+                {
+                    type : 'category',
+                    data : xData,
+                    axisLabel: {
+                        interval:0,
+                        rotate:40
+                    }
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value',
+                    axisTick:{
+                        show:true
+                    },
+                    // y 轴线
+                    axisLine:{
+                        show:true
+                    },
+                    // 分割线设置
+                    splitLine:{
+                        show:true         
+                    },
+                    axisLabel:{
+                        show:true
+                    }
+                }
+            ],
+            series : [
+                {
+                    name:'成绩',
+                    type:'bar',
+                    data: scores,
+                    itemStyle: {
+                        normal: {
+                            barBorderRadius:[4, 4, 4, 4],
+                            label: {
+                                show: true, //开启显示
+                                position: 'top', //在上方显示
+                                textStyle: { //数值样式
+                                    color: 'black',
+                                    fontSize: 14
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        };
+
+        myChart.setOption(option,true);
+
+    }
+
+
+
+
+</script>
 </html>

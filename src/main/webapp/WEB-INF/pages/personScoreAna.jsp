@@ -59,18 +59,6 @@
                                     </div>
                                 </div>
 
-                                <div id="classSetTableToolBar">
-                                    <div class="col-sm-4 col-lg-3 col-md-3 col-xs-12">
-                                        <div class="input-group input-group-sm ">
-                                            <span class="input-group-addon btn-success"><span style="margin: 0px 10px">学期</span></span>
-                                            <select class="selectpicker form-control" style="height: 40px"
-                                                    name="period" id="classSelect"
-                                                    data-style="btn-default btn-outline"
-                                                    noneSelectedText="不限">
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
 
 
                             </div>
@@ -143,7 +131,7 @@
         var dataTime=new Date();
         var year=[];
         var fullYear = dataTime.getFullYear();
-        for (var i = 3; i >0 ; i--) {
+        for (var i = 5; i >0 ; i--) {
             year.push(fullYear-(i));
         }
         for (var i = 0; i <3 ; i++) {
@@ -155,17 +143,6 @@
             $("#yearSelect").append('<option value="' +year[i]+ '">' +year[i] + '</option>');
         }
 
-        $.ajax({
-            type: "GET",
-            url: "v1/api/class/getClassName",
-            dataType: "json",
-            success: function (result) {
-                var data=result.result;
-                $.each(data, function(index, value) {
-                    $("#classSelect").append('<option value="' +value.className+ '">' +value.className + '</option>');
-                });
-            }
-        });
 
     }
 
@@ -174,19 +151,51 @@
         var myChart2= echarts.init(document.getElementById("classEchars2"));
         var myChart3= echarts.init(document.getElementById("classEchars3"));
         var myChart4= echarts.init(document.getElementById("classEchars4"));
+        var year=$("#yearSelect option:selected").val();
+        var team=$("#teamSelect option:selected").val();
+        var xData=[];
+        var scores=[];
+        var peiScore=[];
+        $.ajax({
+            type: "GET",
+            url: "v1/api/score/getAllScores",
+            dataType: "json",
+            async: false,
+            data:{year:year,team:team},
+            success: function (result) {
+                var data=result.result;
+                $.each(data, function(index, value) {
+                    xData.push(value.scoreClassName);
+                    scores.push(value.scoreNum);
+                    var obj={};
+                    obj.value=value.scoreNum;
+                    obj.name=value.scoreClassName;
+                    peiScore.push(obj);
+                })
+            }
+        });
+        console.log(xData)
+        console.log(scores)
         var option = {
             tooltip : {
                 trigger: 'axis'
             },
+            visualMap: {
+                show:false,
+                max: 100,
+                inRange: {
+                    color: ['#313695', '#4575b4', '#d15f79', '#abd9e9', '#6df8b4', '#23ff60', '#fe7979', '#fdaf68', '#51d5f4', '#6cd6d7', '#20a50d']
+                }
+            },
             legend: {
-                data:['邮件营销','联盟广告','视频广告','直接访问','搜索引擎']
+                data:['学科成绩']
             },
             toolbox: {
                 show : true,
                 feature : {
                     mark : {show: true},
                     dataView : {show: true, readOnly: false},
-                    magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                    magicType : {show: true, type: ['line', 'bar']},
                     restore : {show: true},
                     saveAsImage : {show: true}
                 }
@@ -195,59 +204,114 @@
             xAxis : [
                 {
                     type : 'category',
-                    boundaryGap : false,
-                    data : ['周一','周二','周三','周四','周五','周六','周日']
+                    data : xData,
+                    axisLabel: {
+                        interval:0,
+                        rotate:20
+                    }
                 }
             ],
             yAxis : [
                 {
-                    type : 'value'
+                    type : 'value',
+                    axisTick:{
+                        show:true
+                    },
+                    // y 轴线
+                    axisLine:{
+                        show:true
+                    },
+                    // 分割线设置
+                    splitLine:{
+                        show:true
+                    },
+                    axisLabel:{
+                        show:true
+                    }
                 }
             ],
             series : [
                 {
-                    name:'邮件营销',
-                    type:'line',
-                    stack: '总量',
-                    itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                    data:[120, 132, 101, 134, 90, 230, 210]
-                },
+                    name:'成绩',
+                    type:'bar',
+                    data: scores,
+                    itemStyle: {
+                        normal: {
+                            barBorderRadius:[4, 4, 4, 4],
+                            label: {
+                                show: true, //开启显示
+                                position: 'top', //在上方显示
+                                textStyle: { //数值样式
+                                    color: 'black',
+                                    fontSize: 14
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        };
+        var optionpie = {
+            title : {
+                text: '各科成绩占比',
+                subtext: '单位（%）',
+                x:'center'
+            },
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            color:['#fe7979', '#fdaf68', '#51d5f4', '#6cd6d7', '#20a50d','#abd9e9', '#6df8b4', '#23ff60'],
+            legend: {
+                orient : 'vertical',
+                x : 'left',
+                data: xData
+            },
+            toolbox: {
+                show : true,
+                feature : {
+                    mark : {show: true},
+                    dataView : {show: true, readOnly: false},
+                    magicType : {
+                        show: true,
+                        type: ['pie', 'funnel'],
+                        option: {
+                            funnel: {
+                                x: '25%',
+                                width: '50%',
+                                funnelAlign: 'left',
+                                max: 1548
+                            }
+                        }
+                    },
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
+            calculable : true,
+            series : [
                 {
-                    name:'联盟广告',
-                    type:'line',
-                    stack: '总量',
-                    itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                    data:[220, 182, 191, 234, 290, 330, 310]
-                },
-                {
-                    name:'视频广告',
-                    type:'line',
-                    stack: '总量',
-                    itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                    data:[150, 232, 201, 154, 190, 330, 410]
-                },
-                {
-                    name:'直接访问',
-                    type:'line',
-                    stack: '总量',
-                    itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                    data:[320, 332, 301, 334, 390, 330, 320]
-                },
-                {
-                    name:'搜索引擎',
-                    type:'line',
-                    stack: '总量',
-                    itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                    data:[820, 932, 901, 934, 1290, 1330, 1320]
+                    name:'访问来源',
+                    type:'pie',
+                    radius : '55%',
+                    center: ['50%', '60%'],
+                    data: peiScore
                 }
             ]
         };
 
         myChart.setOption(option,true);
-        myChart2.setOption(option,true);
+        myChart2.setOption(optionpie,true);
         myChart3.setOption(option,true);
         myChart4.setOption(option,true);
     }
+
+    $('#yearSelect').on('change', function (e, clickedIndex, isSelected, previousValue) {
+        getClassEchars();
+    });
+    $('#teamSelect').on('change', function (e, clickedIndex, isSelected, previousValue) {
+        getClassEchars();
+    });
 
 
 

@@ -2,14 +2,13 @@ package com.zetta.onlineexamsystem.service.impl;
 
 import com.zetta.onlineexamsystem.mapper.StuClassMapper;
 import com.zetta.onlineexamsystem.mapper.StuScoreMapper;
-import com.zetta.onlineexamsystem.modle.StuClass;
-import com.zetta.onlineexamsystem.modle.StuScore;
-import com.zetta.onlineexamsystem.modle.StuScoreExample;
+import com.zetta.onlineexamsystem.modle.*;
 import com.zetta.onlineexamsystem.service.StuScoreService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.LinkedList;
@@ -22,6 +21,8 @@ public class StuScoreServiceImpl implements StuScoreService {
     private StuScoreMapper stuScoreMapper;
     @Resource
     private StuClassMapper stuClassMapper;
+    @Resource
+    private HttpServletRequest request;
 
 
     /**
@@ -51,12 +52,37 @@ public class StuScoreServiceImpl implements StuScoreService {
                 StuClass stuClass=new StuClass();
                 stuClass.setClassName(className);
                 stuClass.setCreateTime(new Date());
-                return stuClassMapper.insert(stuClass)>0;
+                StuClassExample stuClassExample=new StuClassExample();
+                StuClassExample.Criteria criteria1=stuClassExample.createCriteria();
+                criteria1.andClassNameEqualTo(className);
+                List<StuClass> classes = stuClassMapper.selectByExample(stuClassExample);
+                if(classes.size()==0){
+                    return stuClassMapper.insert(stuClass)>0;
+                }
+                return true;
             }else {
                 return false;
             }
 
         }
+    }
+
+    @Override
+    public List<StuScore> getAllScoresWithPerson(Integer year,Integer team) {
+        StuUser userinfo = (StuUser) request.getSession().getAttribute("userinfo");
+        if(userinfo!=null) {
+            StuScoreExample stuScoreExample = new StuScoreExample();
+            StuScoreExample.Criteria criteria = stuScoreExample.createCriteria();
+            criteria.andUserNumEqualTo(userinfo.getUserNum());
+            if(year!=null){
+                criteria.andScoreTimeEqualTo(year);
+            }
+            if(team!=null){
+                criteria.andScoreTeamEqualTo(team);
+            }
+            return stuScoreMapper.selectByExample(stuScoreExample);
+        }
+        return null;
     }
 
     private boolean insertScore(List<List<String>> lists, Integer year, Integer team,String className) {
@@ -104,6 +130,7 @@ public class StuScoreServiceImpl implements StuScoreService {
             if(i>4){
                 List<String> scores = lists.get(i);
                 String userNum=scores.get(2)==null?"":scores.get(2);
+                String userName=scores.get(3)==null?"":scores.get(3);
                 for (int i1 = 0; i1 < scores.size(); i1++) {
                     if(i1>3 && i1<19){
                         if(scores.get(i1)==null || "".equals(scores.get(i1))){
@@ -111,6 +138,7 @@ public class StuScoreServiceImpl implements StuScoreService {
                         }
                         StuScore stuScore=new StuScore();
                         stuScore.setUserNum(userNum);
+                        stuScore.setUserName(userName);
                         stuScore.setClassName(className);
                         stuScore.setScoreClassName(projects.get(i1-4)==null?"":projects.get(i1-4));
                         stuScore.setScoreNum(new BigDecimal(scores.get(i1)==null?"":scores.get(i1)));

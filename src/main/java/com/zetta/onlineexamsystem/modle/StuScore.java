@@ -8,6 +8,8 @@ public class StuScore {
 
     private String userNum;
 
+    private String userName;
+
     private BigDecimal scoreNum;
 
     private String className;
@@ -42,6 +44,14 @@ public class StuScore {
 
     public void setUserNum(String userNum) {
         this.userNum = userNum == null ? null : userNum.trim();
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName == null ? null : userName.trim();
     }
 
     public BigDecimal getScoreNum() {

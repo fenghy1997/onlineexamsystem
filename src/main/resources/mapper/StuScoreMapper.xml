@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-mybatis.orgDTD Mapper 3.0EN" "http:mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zetta.onlineexamsystem.mapper.StuScoreMapper">
   <resultMap id="BaseResultMap" type="com.zetta.onlineexamsystem.modle.StuScore">
     <id column="SCORE_ID" jdbcType="BIGINT" property="scoreId" />
     <result column="USER_NUM" jdbcType="VARCHAR" property="userNum" />
+    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
     <result column="SCORE_NUM" jdbcType="DECIMAL" property="scoreNum" />
     <result column="CLASS_NAME" jdbcType="VARCHAR" property="className" />
     <result column="SCORE_CLASS_NAME" jdbcType="VARCHAR" property="scoreClassName" />
@@ -74,8 +75,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    SCORE_ID, USER_NUM, SCORE_NUM, CLASS_NAME, SCORE_CLASS_NAME, SCORE_AVG_NUM, SCORE_AVG_CREDIT, 
-    SCORE_TOTAL_NUM, SCORE_GPA, SCORE_TEAM, SCORE_TIME, CREATE_TIME
+    SCORE_ID, USER_NUM, USER_NAME, SCORE_NUM, CLASS_NAME, SCORE_CLASS_NAME, SCORE_AVG_NUM, 
+    SCORE_AVG_CREDIT, SCORE_TOTAL_NUM, SCORE_GPA, SCORE_TEAM, SCORE_TIME, CREATE_TIME
   </sql>
   <select id="selectByExample" parameterType="com.zetta.onlineexamsystem.modle.StuScoreExample" resultMap="BaseResultMap">
     select
@@ -108,30 +109,33 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.zetta.onlineexamsystem.modle.StuScore">
-    insert into stu_score (SCORE_ID, USER_NUM, SCORE_NUM, 
-      CLASS_NAME, SCORE_CLASS_NAME, SCORE_AVG_NUM, 
-      SCORE_AVG_CREDIT, SCORE_TOTAL_NUM, SCORE_GPA, 
-      SCORE_TEAM, SCORE_TIME, CREATE_TIME
-      )
-    values (#{scoreId,jdbcType=BIGINT}, #{userNum,jdbcType=VARCHAR}, #{scoreNum,jdbcType=DECIMAL}, 
-      #{className,jdbcType=VARCHAR}, #{scoreClassName,jdbcType=VARCHAR}, #{scoreAvgNum,jdbcType=DECIMAL}, 
-      #{scoreAvgCredit,jdbcType=DECIMAL}, #{scoreTotalNum,jdbcType=DECIMAL}, #{scoreGpa,jdbcType=DECIMAL}, 
-      #{scoreTeam,jdbcType=INTEGER}, #{scoreTime,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}
-      )
+    insert into stu_score (SCORE_ID, USER_NUM, USER_NAME, 
+      SCORE_NUM, CLASS_NAME, SCORE_CLASS_NAME, 
+      SCORE_AVG_NUM, SCORE_AVG_CREDIT, SCORE_TOTAL_NUM, 
+      SCORE_GPA, SCORE_TEAM, SCORE_TIME, 
+      CREATE_TIME)
+    values (#{scoreId,jdbcType=BIGINT}, #{userNum,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{scoreNum,jdbcType=DECIMAL}, #{className,jdbcType=VARCHAR}, #{scoreClassName,jdbcType=VARCHAR}, 
+      #{scoreAvgNum,jdbcType=DECIMAL}, #{scoreAvgCredit,jdbcType=DECIMAL}, #{scoreTotalNum,jdbcType=DECIMAL}, 
+      #{scoreGpa,jdbcType=DECIMAL}, #{scoreTeam,jdbcType=INTEGER}, #{scoreTime,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP})
   </insert>
+
   <insert id="insertBatch" parameterType="java.util.List">
-  insert into stu_score (SCORE_ID, USER_NUM, SCORE_NUM,
-        CLASS_NAME, SCORE_CLASS_NAME, SCORE_AVG_NUM,
-        SCORE_AVG_CREDIT, SCORE_TOTAL_NUM, SCORE_GPA,
-        SCORE_TEAM, SCORE_TIME, CREATE_TIME)
+    insert into stu_score (SCORE_ID, USER_NUM, USER_NAME,
+    SCORE_NUM, CLASS_NAME, SCORE_CLASS_NAME,
+    SCORE_AVG_NUM, SCORE_AVG_CREDIT, SCORE_TOTAL_NUM,
+    SCORE_GPA, SCORE_TEAM, SCORE_TIME,
+    CREATE_TIME)
     values
     <foreach collection="stuScores" item="item" index="idnex" separator=",">
-          (#{item.scoreId,jdbcType=BIGINT}, #{item.userNum,jdbcType=VARCHAR}, #{item.scoreNum,jdbcType=DECIMAL},#{item.className,jdbcType=VARCHAR},
-          #{item.scoreClassName,jdbcType=VARCHAR}, #{item.scoreAvgNum,jdbcType=DECIMAL}, #{item.scoreAvgCredit,jdbcType=DECIMAL},
-          #{item.scoreTotalNum,jdbcType=DECIMAL}, #{item.scoreGpa,jdbcType=DECIMAL}, #{item.scoreTeam,jdbcType=INTEGER},
-          #{item.scoreTime,jdbcType=INTEGER}, #{item.createTime,jdbcType=TIMESTAMP})
+      (#{item.scoreId,jdbcType=BIGINT}, #{item.userNum,jdbcType=VARCHAR},#{item.userName,jdbcType=VARCHAR}, #{item.scoreNum,jdbcType=DECIMAL},#{item.className,jdbcType=VARCHAR},
+      #{item.scoreClassName,jdbcType=VARCHAR}, #{item.scoreAvgNum,jdbcType=DECIMAL}, #{item.scoreAvgCredit,jdbcType=DECIMAL},
+      #{item.scoreTotalNum,jdbcType=DECIMAL}, #{item.scoreGpa,jdbcType=DECIMAL}, #{item.scoreTeam,jdbcType=INTEGER},
+      #{item.scoreTime,jdbcType=INTEGER}, #{item.createTime,jdbcType=TIMESTAMP})
     </foreach>
-</insert>
+  </insert>
+
   <insert id="insertSelective" parameterType="com.zetta.onlineexamsystem.modle.StuScore">
     insert into stu_score
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -140,6 +144,9 @@
       </if>
       <if test="userNum != null">
         USER_NUM,
+      </if>
+      <if test="userName != null">
+        USER_NAME,
       </if>
       <if test="scoreNum != null">
         SCORE_NUM,
@@ -178,6 +185,9 @@
       </if>
       <if test="userNum != null">
         #{userNum,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
       </if>
       <if test="scoreNum != null">
         #{scoreNum,jdbcType=DECIMAL},
@@ -226,6 +236,9 @@
       <if test="record.userNum != null">
         USER_NUM = #{record.userNum,jdbcType=VARCHAR},
       </if>
+      <if test="record.userName != null">
+        USER_NAME = #{record.userName,jdbcType=VARCHAR},
+      </if>
       <if test="record.scoreNum != null">
         SCORE_NUM = #{record.scoreNum,jdbcType=DECIMAL},
       </if>
@@ -265,6 +278,7 @@
     update stu_score
     set SCORE_ID = #{record.scoreId,jdbcType=BIGINT},
       USER_NUM = #{record.userNum,jdbcType=VARCHAR},
+      USER_NAME = #{record.userName,jdbcType=VARCHAR},
       SCORE_NUM = #{record.scoreNum,jdbcType=DECIMAL},
       CLASS_NAME = #{record.className,jdbcType=VARCHAR},
       SCORE_CLASS_NAME = #{record.scoreClassName,jdbcType=VARCHAR},
@@ -284,6 +298,9 @@
     <set>
       <if test="userNum != null">
         USER_NUM = #{userNum,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        USER_NAME = #{userName,jdbcType=VARCHAR},
       </if>
       <if test="scoreNum != null">
         SCORE_NUM = #{scoreNum,jdbcType=DECIMAL},
@@ -321,6 +338,7 @@
   <update id="updateByPrimaryKey" parameterType="com.zetta.onlineexamsystem.modle.StuScore">
     update stu_score
     set USER_NUM = #{userNum,jdbcType=VARCHAR},
+      USER_NAME = #{userName,jdbcType=VARCHAR},
       SCORE_NUM = #{scoreNum,jdbcType=DECIMAL},
       CLASS_NAME = #{className,jdbcType=VARCHAR},
       SCORE_CLASS_NAME = #{scoreClassName,jdbcType=VARCHAR},
