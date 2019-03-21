@@ -119,7 +119,12 @@
                     data : xData,
                     axisLabel: {
                         interval:0,
-                        rotate:40
+                        rotate:-30,
+                        show: true,
+                        textStyle: {
+                            color: '#1c79ff',  //更改坐标轴文字颜色
+                            fontSize : 10      //更改坐标轴文字大小
+                        }
                     }
                 }
             ],
