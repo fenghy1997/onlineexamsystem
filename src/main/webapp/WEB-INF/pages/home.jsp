@@ -187,7 +187,7 @@
             </span>
                     </a>
                     <ul class="treeview-menu" style="display: none;">
-                        <li><a href="pages/charts/chartjs.html" class="J_menuItem"><i class="fa fa-circle-o"></i>密码</a></li>
+                        <li><a href="${staticPath}/resetPwd.html" class="J_menuItem"><i class="fa fa-circle-o"></i>修改密码</a></li>
                     </ul>
                 </li>
                 </c:if>
@@ -238,7 +238,7 @@
             </span>
                         </a>
                         <ul class="treeview-menu" style="display: none;">
-                            <li><a href="pages/charts/chartjs.html" class="J_menuItem"><i class="fa fa-circle-o"></i>密码</a></li>
+                            <li><a href="${staticPath}/resetPwd.html" class="J_menuItem"><i class="fa fa-circle-o"></i>修改密码</a></li>
                                 <%--<li><a href="pages/charts/morris.html" class="J_menuItem"><i class="fa fa-circle-o">班级历史成绩</i></a></li>--%>
                                 <%--<li><a href="pages/charts/flot.html" class="J_menuItem"><i class="fa fa-circle-o"></i> Flot图表</a></li>--%>
                                 <%--<li><a href="pages/charts/inline.html" class="J_menuItem"><i class="fa fa-circle-o"></i> 线性图表</a></li>--%>

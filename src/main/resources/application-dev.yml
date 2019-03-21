@@ -68,3 +68,10 @@ pagehelper:
 logging:
   level:
     com.zetta.onlineexamsystem.mapper : DEBUG
+
+mail:
+  from: fhyxszd@163.com
+  password: fhy520
+  host: smtp.163.com
+  protocol: smtp
+

@@ -8,10 +8,14 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class PageController {
 
+
+
     @RequestMapping("/")
     public String getIndex(){
         return  "index";
     }
+
+
 
     /**
      * 获取菜单栏
@@ -36,6 +40,11 @@ public class PageController {
     @RequestMapping("/excelImportWithScore.html")
     public String excelImportWithScore(HttpServletRequest request) {
         return "WEB-INF/pages/excelImportWithScore";
+    }
+
+    @RequestMapping("/resetPwd.html")
+    public String resetPwd(HttpServletRequest request) {
+        return "WEB-INF/pages/resetPwd";
     }
 
     @RequestMapping("/classScoreAna.html")

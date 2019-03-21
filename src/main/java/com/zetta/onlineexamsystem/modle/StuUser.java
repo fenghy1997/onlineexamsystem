@@ -25,6 +25,16 @@ public class StuUser {
 
     private Date udpateTime;
 
+    private String yzm;
+
+    public String getYzm() {
+        return yzm;
+    }
+
+    public void setYzm(String yzm) {
+        this.yzm = yzm;
+    }
+
     public Long getUserId() {
         return userId;
     }

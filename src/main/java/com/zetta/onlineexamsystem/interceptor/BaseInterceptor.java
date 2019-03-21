@@ -36,7 +36,7 @@ public class BaseInterceptor implements HandlerInterceptor {
 
 
 
-        if(uri.toCharArray().length==1 || uri.indexOf("login")>0){
+        if(uri.toCharArray().length==1 || uri.indexOf("login")>0 || uri.indexOf("sendYZM")>0 || uri.indexOf("checkoutyzm")>0 || uri.indexOf("register")>0||uri.indexOf("sendYZMpwd")>0||uri.indexOf("checkOutYZMpwd")>0||uri.indexOf("resetPwd")>0){
             return true;
         }
 
