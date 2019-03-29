@@ -166,7 +166,6 @@
             data:{year:year,team:team},
             success: function (result) {
                 var data=result.result;
-                console.log(data);
                 $.each(data, function(index, value) {
                     xData.push(value.scoreClassName);
                     scores.push(value.scoreNum);

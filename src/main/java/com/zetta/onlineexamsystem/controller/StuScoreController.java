@@ -21,6 +21,9 @@ public class StuScoreController {
     @Resource
     private StuScoreService stuScoreService;
 
+    @Resource
+    private HttpServletRequest request;
+
     @GetMapping("/getAllScores")
     public RestResponse<Object> getAllScores(@RequestParam("year")Integer year,@RequestParam("team")Integer team){
         RestResponse<Object> response=new RestResponse<>();
@@ -41,6 +44,16 @@ public class StuScoreController {
         RestResponse<Object> response=new RestResponse<>();
         List<String> classes=stuScoreService.getScoreClassNames(stuScore);
         response.setResult(classes);
+        response.setResultCode(StatusCode.OK.code());
+        response.setResultMsg(StatusCode.OK.message());
+        return response;
+    }
+
+    @PostMapping("/getAllScoresWithClass")
+    public RestResponse<Object> getAllScoresWithClass(@RequestBody StuScore stuScore){
+        RestResponse<Object> response=new RestResponse<>();
+        List<StuScore> stuScores=stuScoreService.getScoresByClass(stuScore);
+        response.setResult(stuScores);
         response.setResultCode(StatusCode.OK.code());
         response.setResultMsg(StatusCode.OK.message());
         return response;

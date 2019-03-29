@@ -12,13 +12,13 @@ public interface StuScoreMapper {
 
     int deleteByPrimaryKey(Long scoreId);
 
-    int insert(StuScore record);
+    int insert( StuScore record);
 
     int insertBatch(@Param("stuScores") List<StuScore> stuScores);
 
     int insertSelective(StuScore record);
 
-    List<String> selectScoreClassName(StuScore stuScore);
+    List<String> selectScoreClassName(@Param("stuScore") StuScore stuScore);
 
     List<StuScore> selectByExample(StuScoreExample example);
 

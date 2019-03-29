@@ -87,7 +87,42 @@ public class StuScoreServiceImpl implements StuScoreService {
 
     @Override
     public List<String> getScoreClassNames(StuScore stuScore) {
+        StuUser stuUser=(StuUser)request.getSession().getAttribute("userinfo");
+        if(stuScore.getClassName()==null || "".equals(stuScore.getClassName())){
+            StuScoreExample stuScoreExample=new StuScoreExample();
+            StuScoreExample.Criteria criteria=stuScoreExample.createCriteria();
+            criteria.andUserNumEqualTo(stuUser.getUserNum());
+            List<StuScore> stuScores = stuScoreMapper.selectByExample(stuScoreExample);
+            if(stuScores.size()>0){
+                StuScore stuScore1 = stuScores.get(0);
+                stuScore.setClassName(stuScore1.getClassName());
+            }
+        }
         return stuScoreMapper.selectScoreClassName(stuScore);
+    }
+
+    @Override
+    public List<StuScore> getScoresByClass(StuScore stuScore) {
+        StuUser stuUser=(StuUser)request.getSession().getAttribute("userinfo");
+        StuScoreExample stuScoreExample=new StuScoreExample();
+        StuScoreExample.Criteria criteria=stuScoreExample.createCriteria();
+        if(stuScore.getClassName()==null || "".equals(stuScore.getClassName())){
+            StuScoreExample scoreExample=new StuScoreExample();
+            StuScoreExample.Criteria criteria1=scoreExample.createCriteria();
+            criteria1.andUserNumEqualTo(stuUser.getUserNum());
+            List<StuScore> stuScores = stuScoreMapper.selectByExample(scoreExample);
+            if(stuScores.size()>0){
+                StuScore stuScore1 = stuScores.get(0);
+                criteria.andClassNameEqualTo(stuScore1.getClassName());
+            }
+
+        }else {
+            criteria.andClassNameEqualTo(stuScore.getClassName());
+        }
+        criteria.andScoreTimeEqualTo(stuScore.getScoreTime());
+        criteria.andScoreTeamEqualTo(stuScore.getScoreTeam());
+        criteria.andScoreClassNameEqualTo(stuScore.getScoreClassName());
+        return stuScoreMapper.selectByExample(stuScoreExample);
     }
 
     private boolean insertScore(List<List<String>> lists, Integer year, Integer team,String className) {

@@ -10,4 +10,6 @@ public interface StuScoreService {
     List<StuScore> getAllScoresWithPerson(Integer year,Integer team);
 
     List<String> getScoreClassNames(StuScore stuScore);
+
+    List<StuScore> getScoresByClass(StuScore stuScore);
 }
