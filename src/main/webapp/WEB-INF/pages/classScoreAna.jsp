@@ -158,6 +158,13 @@
         for (var i = 1; i < year.length; i++) {
             $("#yearSelect").append('<option value="' +year[i]+ '">' +year[i] + '</option>');
         }
+        getDataClassWithName();
+        getSourceName();
+    }
+
+    function getDataClassWithName() {
+        $("#classSelect").empty();
+
         $.ajax({
             type: "GET",
             url: "v1/api/class/getClassName",
@@ -168,27 +175,28 @@
                 $.each(data, function(index, value) {
                     $("#classSelect").append('<option value="' +value.className+ '">' +value.className + '</option>');
                 });
-                var year=$("#yearSelect option:selected").val();
-                var team=$("#teamSelect option:selected").val();
-                var className="";
-                if(status===1){
-                    className=$("#classSelect option:selected").val();
-                }
-                $.ajax({
-                    type: "Post",
-                    url: "v1/api/score/getScoreClassName",
-                    contentType:"application/json",
-                    dataType: "json",
-                    async: false,
-                    data: JSON.stringify({scoreTime:year,scoreTeam:team,className:className}),
-                    success: function (result) {
-                        var data=result.result;
-                        $.each(data, function(index, value) {
-                            $("#classNameSelect").append('<option value="' +value+ '">' +value + '</option>');
-                        });
+            }
+        });
+    }
 
-                    }
+    function getSourceName(){
+        $("#classNameSelect").empty();
+        var year=$("#yearSelect option:selected").val();
+        var team=$("#teamSelect option:selected").val();
+        var className=$("#classSelect option:selected").val();
+        $.ajax({
+            type: "Post",
+            url: "v1/api/score/getScoreClassName",
+            contentType:"application/json",
+            dataType: "json",
+            async: false,
+            data: JSON.stringify({scoreTime:year,scoreTeam:team,className:className}),
+            success: function (result) {
+                var data=result.result;
+                $.each(data, function(index, value) {
+                    $("#classNameSelect").append('<option value="' +value+ '">' +value + '</option>');
                 });
+
             }
         });
     }
@@ -220,12 +228,6 @@
                     xData.push(value.userName);
                     scores.push(value.scoreNum);
                     totalNum.push(value.scoreTotalNum);
-                    // scoreAvgCredit.push(value.scoreAvgCredit);
-                    // totalNum=value.scoreTotalNum;
-                    // var obj={};
-                    // obj.value=value.scoreNum;
-                    // obj.name=value.scoreClassName;
-                    // peiScore.push(obj);
                 })
             }
         });
@@ -336,7 +338,8 @@
             },
             visualMap: {
                 show:false,
-                max: 500,
+                max: 600,
+                min:200,
                 inRange: {
                     color: ['#313695', '#4575b4', '#d15f79', '#abd9e9', '#6df8b4', '#23ff60', '#fe7979', '#fdaf68', '#51d5f4', '#6cd6d7', '#20a50d']
                 }
@@ -425,19 +428,20 @@
 
         myChart.setOption(option,true);
         myChart2.setOption(optionTotal,true);
-        // myChart3.setOption(option,true);
-        // myChart4.setOption(option,true);
     }
 
     $('#yearSelect').on('change', function (e, clickedIndex, isSelected, previousValue) {
+        getSourceName();
         getClassEchars();
     });
 
     $('#teamSelect').on('change', function (e, clickedIndex, isSelected, previousValue) {
+        getSourceName();
         getClassEchars();
     });
 
     $('#classSelect').on('change', function (e, clickedIndex, isSelected, previousValue) {
+        getSourceName();
         getClassEchars();
     });
 
