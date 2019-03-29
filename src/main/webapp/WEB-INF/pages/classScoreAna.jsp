@@ -72,6 +72,19 @@
                                     </div>
                                 </div>
 
+                                <div id="classNameSetTableToolBar">
+                                    <div class="col-sm-4 col-lg-3 col-md-3 col-xs-12">
+                                        <div class="input-group input-group-sm ">
+                                            <span class="input-group-addon btn-success"><span style="margin: 0px 10px">科目</span></span>
+                                            <select class="selectpicker form-control" style="height: 40px"
+                                                    name="period" id="classNameSelect"
+                                                    data-style="btn-default btn-outline"
+                                                    noneSelectedText="不限">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
 
                             </div>
                         </div>
@@ -163,6 +176,22 @@
                 var data=result.result;
                 $.each(data, function(index, value) {
                     $("#classSelect").append('<option value="' +value.className+ '">' +value.className + '</option>');
+                });
+                var year=$("#yearSelect option:selected").val();
+                var team=$("#teamSelect option:selected").val();
+                var className=$("#classSelect option:selected").val();
+                $.ajax({
+                    type: "Post",
+                    url: "v1/api/score/getScoreClassName",
+                    contentType:"application/json",
+                    dataType: "json",
+                    data: JSON.stringify({scoreTime:year,scoreTeam:team,className:className}),
+                    success: function (result) {
+                        var data=result.result;
+                        $.each(data, function(index, value) {
+                            $("#classNameSelect").append('<option value="' +value+ '">' +value + '</option>');
+                        });
+                    }
                 });
             }
         });

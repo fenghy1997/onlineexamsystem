@@ -155,7 +155,9 @@
         var team=$("#teamSelect option:selected").val();
         var xData=[];
         var scores=[];
+        var scoreAvgCredit=[];
         var peiScore=[];
+        var totalNum='';
         $.ajax({
             type: "GET",
             url: "v1/api/score/getAllScores",
@@ -164,9 +166,12 @@
             data:{year:year,team:team},
             success: function (result) {
                 var data=result.result;
+                console.log(data);
                 $.each(data, function(index, value) {
                     xData.push(value.scoreClassName);
                     scores.push(value.scoreNum);
+                    scoreAvgCredit.push(value.scoreAvgCredit);
+                    totalNum=value.scoreTotalNum;
                     var obj={};
                     obj.value=value.scoreNum;
                     obj.name=value.scoreClassName;
@@ -174,9 +179,12 @@
                 })
             }
         });
-        console.log(xData)
-        console.log(scores)
+
         var option = {
+            title : {
+                text: '各科成绩',
+                x:'center'
+            },
             tooltip : {
                 trigger: 'axis'
             },
@@ -207,7 +215,7 @@
                     data : xData,
                     axisLabel: {
                         interval:0,
-                        rotate:20
+                        rotate:-20
                     }
                 }
             ],
@@ -299,11 +307,143 @@
                 }
             ]
         };
+        var baroption = {
+            title : {
+                text: '各科学分',
+                x:'center'
+            },
+            tooltip : {
+                trigger: 'axis'
+            },
+            visualMap: {
+                show:false,
+                max: 100,
+                inRange: {
+                    color: ['#313695', '#4575b4', '#d15f79', '#abd9e9', '#6df8b4', '#23ff60', '#fe7979', '#fdaf68', '#51d5f4', '#6cd6d7', '#20a50d']
+                }
+            },
+            legend: {
+                data:['学科成绩']
+            },
+            toolbox: {
+                show : true,
+                feature : {
+                    mark : {show: true},
+                    dataView : {show: true, readOnly: false},
+                    magicType : {show: true, type: ['line', 'bar']},
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
+            calculable : true,
+            xAxis : [
+                {
+                    type : 'category',
+                    data : xData,
+                    axisLabel: {
+                        interval:0,
+                        rotate:-20
+                    }
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value',
+                    axisTick:{
+                        show:true
+                    },
+                    // y 轴线
+                    axisLine:{
+                        show:true
+                    },
+                    // 分割线设置
+                    splitLine:{
+                        show:true
+                    },
+                    axisLabel:{
+                        show:true
+                    }
+                }
+            ],
+            series : [
+                {
+                    name:'学分',
+                    type:'bar',
+                    data: scoreAvgCredit,
+                    itemStyle: {
+                        normal: {
+                            barBorderRadius:[4, 4, 4, 4],
+                            label: {
+                                show: true, //开启显示
+                                position: 'top', //在上方显示
+                                textStyle: { //数值样式
+                                    color: 'black',
+                                    fontSize: 14
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        };
+        var optiontotalpie = {
+            title : {
+                text: '总成绩',
+                x:'center'
+            },
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+             color:['#fe7979', '#fdaf68', '#51d5f4', '#6cd6d7', '#20a50d','#abd9e9', '#6df8b4', '#23ff60'],
+            // legend: {
+            //     orient : 'vertical',
+            //     x : 'left',
+            //     data:
+            // },
+
+            calculable : true,
+            series : [
+                {
+                    name:'访问来源',
+                    type:'pie',
+                    radius : '55%',
+                    hoverAnimation:false,
+                    silent:true,
+                    center: ['50%', '60%'],
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'center',
+                            formatter:function (argument) {
+                                var html;
+                                html='总成绩\r\n\r\n'+totalNum+'分';
+                                return html;
+                            },
+                            textStyle:{
+                                fontSize: 23,
+                                color:'#040e0e',
+                                fontWeight:20
+                            }
+                        }
+                    },
+                    data: [{value:100,name:'总成绩'}],
+                    itemStyle: {
+                        emphasis: {
+//                                 shadowBlur: 10,
+                            // shadowOffsetX: 100,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+
 
         myChart.setOption(option,true);
         myChart2.setOption(optionpie,true);
-        myChart3.setOption(option,true);
-        myChart4.setOption(option,true);
+        myChart3.setOption(baroption,true);
+        myChart4.setOption(optiontotalpie,true);
     }
 
     $('#yearSelect').on('change', function (e, clickedIndex, isSelected, previousValue) {

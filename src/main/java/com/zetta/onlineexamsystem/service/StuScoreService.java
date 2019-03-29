@@ -8,4 +8,6 @@ public interface StuScoreService {
     Boolean importScoreExcel(List<List<String>> lists,Integer year, Integer team);
 
     List<StuScore> getAllScoresWithPerson(Integer year,Integer team);
+
+    List<String> getScoreClassNames(StuScore stuScore);
 }

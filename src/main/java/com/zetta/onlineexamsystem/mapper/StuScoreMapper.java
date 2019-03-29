@@ -18,6 +18,8 @@ public interface StuScoreMapper {
 
     int insertSelective(StuScore record);
 
+    List<String> selectScoreClassName(StuScore stuScore);
+
     List<StuScore> selectByExample(StuScoreExample example);
 
     StuScore selectByPrimaryKey(Long scoreId);

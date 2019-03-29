@@ -3,6 +3,7 @@ package com.zetta.onlineexamsystem.controller;
 
 import com.zetta.onlineexamsystem.commons.RestResponse;
 import com.zetta.onlineexamsystem.commons.StatusCode;
+import com.zetta.onlineexamsystem.modle.StuClass;
 import com.zetta.onlineexamsystem.modle.StuScore;
 import com.zetta.onlineexamsystem.modle.StuUser;
 import com.zetta.onlineexamsystem.service.StuScoreService;
@@ -32,6 +33,16 @@ public class StuScoreController {
             response.setResultCode(StatusCode.INVALID_PARAMS_CONVERSION.code());
             response.setResultMsg(StatusCode.INVALID_PARAMS_CONVERSION.message());
         }
+        return response;
+    }
+
+    @PostMapping("/getScoreClassName")
+    public RestResponse<Object> getScoreClassName(@RequestBody StuScore stuScore){
+        RestResponse<Object> response=new RestResponse<>();
+        List<String> classes=stuScoreService.getScoreClassNames(stuScore);
+        response.setResult(classes);
+        response.setResultCode(StatusCode.OK.code());
+        response.setResultMsg(StatusCode.OK.message());
         return response;
     }
 }

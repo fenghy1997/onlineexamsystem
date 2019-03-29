@@ -98,6 +98,11 @@
     from stu_score
     where SCORE_ID = #{scoreId,jdbcType=BIGINT}
   </select>
+  <select id="selectScoreClassName"  resultType="java.lang.String">
+   select score_class_name from stu_score where score_time=#{stuScore.scoreTime} and score_team=#{stuScore.scoreTeam}
+   and class_name like #{stuScore.className,jdbcType=VARCHAR}
+   group by score_class_name
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from stu_score
     where SCORE_ID = #{scoreId,jdbcType=BIGINT}

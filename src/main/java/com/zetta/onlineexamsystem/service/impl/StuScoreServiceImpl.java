@@ -85,6 +85,11 @@ public class StuScoreServiceImpl implements StuScoreService {
         return null;
     }
 
+    @Override
+    public List<String> getScoreClassNames(StuScore stuScore) {
+        return stuScoreMapper.selectScoreClassName(stuScore);
+    }
+
     private boolean insertScore(List<List<String>> lists, Integer year, Integer team,String className) {
         String teamName="";
         if(team!=null && team==1){
