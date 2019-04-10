@@ -26,7 +26,12 @@
             <div class="row">
                 <label class="control-label btn-lg"></label>
             </div>
-
+            <c:if test="${sessionScope.userinfo.status==1}">
+                <h1>
+                    欢迎来到成绩分析系统
+                </h1>
+           </c:if>
+           <c:if test="${sessionScope.userinfo.status==2}">
             <div class="row">
                 <div class="col-md-12 text-center">
                     <h1 style="font-weight: bold">个人成绩概览</h1>
@@ -46,6 +51,7 @@
                         </div>
                 </div>
             </div>
+          </c:if>
         </div>
     </div>
 </div>

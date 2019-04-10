@@ -105,6 +105,7 @@ public class StuScoreServiceImpl implements StuScoreService {
     public List<StuScore> getScoresByClass(StuScore stuScore) {
         StuUser stuUser=(StuUser)request.getSession().getAttribute("userinfo");
         StuScoreExample stuScoreExample=new StuScoreExample();
+        stuScoreExample.setOrderByClause("SCORE_TOTAL_NUM DESC");
         StuScoreExample.Criteria criteria=stuScoreExample.createCriteria();
         if(stuScore.getClassName()==null || "".equals(stuScore.getClassName())){
             StuScoreExample scoreExample=new StuScoreExample();
@@ -119,6 +120,17 @@ public class StuScoreServiceImpl implements StuScoreService {
         }else {
             criteria.andClassNameEqualTo(stuScore.getClassName());
         }
+        criteria.andScoreTimeEqualTo(stuScore.getScoreTime());
+        criteria.andScoreTeamEqualTo(stuScore.getScoreTeam());
+        criteria.andScoreClassNameEqualTo(stuScore.getScoreClassName());
+        return stuScoreMapper.selectByExample(stuScoreExample);
+    }
+
+    @Override
+    public List<StuScore> getScoresByClassAllProc(StuScore stuScore) {
+        StuScoreExample stuScoreExample=new StuScoreExample();
+        stuScoreExample.setOrderByClause("SCORE_NUM DESC");
+        StuScoreExample.Criteria criteria=stuScoreExample.createCriteria();
         criteria.andScoreTimeEqualTo(stuScore.getScoreTime());
         criteria.andScoreTeamEqualTo(stuScore.getScoreTeam());
         criteria.andScoreClassNameEqualTo(stuScore.getScoreClassName());

@@ -58,4 +58,19 @@ public class StuScoreController {
         response.setResultMsg(StatusCode.OK.message());
         return response;
     }
+
+    @PostMapping("/getAllScoresWithClassAndAllProc")
+    public RestResponse<Object> getAllScoresWithClassAndAllProc(@RequestBody StuScore stuScore){
+        RestResponse<Object> response=new RestResponse<>();
+        List<StuScore> stuScores=stuScoreService.getScoresByClassAllProc(stuScore);
+        if(stuScores.size()>0 && stuScores.size()>60){
+            List<StuScore> stuScores1=stuScores.subList(0,60);
+            response.setResult(stuScores1);
+        }else {
+            response.setResult(stuScores);
+        }
+        response.setResultCode(StatusCode.OK.code());
+        response.setResultMsg(StatusCode.OK.message());
+        return response;
+    }
 }

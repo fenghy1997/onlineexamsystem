@@ -12,4 +12,6 @@ public interface StuScoreService {
     List<String> getScoreClassNames(StuScore stuScore);
 
     List<StuScore> getScoresByClass(StuScore stuScore);
+
+    List<StuScore> getScoresByClassAllProc(StuScore stuScore);
 }

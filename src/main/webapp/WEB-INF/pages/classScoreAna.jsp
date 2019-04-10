@@ -309,7 +309,7 @@
                                 position: 'top', //在上方显示
                                 textStyle: { //数值样式
                                     color: 'black',
-                                    fontSize: 14
+                                    fontSize: 11
                                 }
                             }
                         }
@@ -406,7 +406,7 @@
                                 position: 'top', //在上方显示
                                 textStyle: { //数值样式
                                     color: 'black',
-                                    fontSize: 14
+                                    fontSize: 9
                                 }
                             }
                         }
